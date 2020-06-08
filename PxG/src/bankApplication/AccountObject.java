@@ -7,23 +7,92 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-public class Account {
+public class AccountObject {
 	private static Scanner scanner = new Scanner(System.in);
 	private static Connection con;
 	private static PreparedStatement pstmt;
 	private static ResultSet rs;
-	private String sql, ano, owner, password;
+	private static String sql;
+	private String ano, owner, password, signdate;
 	private double balance;
-	private int log;
-	private static final int LOGOUT = 0;
-	private static final int LOGON = 1;
-
+	private String log;
 	/*
 	 * ano[primary key] 값에 따른 row를 호출||출력 하여 각 값을 Account객체에 저장. Account 객체 타입의 변수
 	 * 리턴, 각 method에서 호출 된 findAccount_method의 값을 Account 객체에 저장 후
 	 * gettersetter_method를 이용하여 값 호출
 	 */
-	public Account() {
+
+	public AccountObject(String ano, String owner, String password, String signdate, double balance, String log) {
+		this.ano = ano;
+		this.owner = owner;
+		this.password = password;
+		this.signdate = signdate;
+		this.balance = balance;
+		this.log = log;
+	}
+
+	public String getAno() {
+		return ano;
+	}
+
+	public void setAno(String ano) {
+		this.ano = ano;
+	}
+
+	public String getOwner() {
+		return owner;
+	}
+
+	public void setOwner(String owner) {
+		this.owner = owner;
+	}
+
+	public String getSigndate() {
+		return signdate;
+	}
+
+	public void setSigndate(String signdate) {
+		this.signdate = signdate;
+	}
+
+	public double getBalance() {
+		return balance;
+	}
+
+	public void setBalance(double balance) {
+		this.balance = balance;
+	}
+
+	public String getLog() {
+		return log;
+	}
+
+	public void setLog(String log) {
+		this.log = log;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void createAccount() throws SQLException {
+		sql = "insert into bank(ano,owner,balance,password) values(?,?,?,?)";
+		String ano = makeAno();
+		String owner = insertOwner();
+		double balance = fDeposit();
+		String password = mkPassword();
+		con = Con();
+		pstmt = con.prepareStatement(sql);
+		pstmt.setString(1, ano);
+		pstmt.setString(2, owner);
+		pstmt.setDouble(3, balance);
+		pstmt.setString(4, password);
+		int result = pstmt.executeUpdate();
+		if (result > 0) {
+			System.out.println("가입성공!");
+		} else {
+			System.out.println("가입실패!");
+		}
 	}
 
 	public Connection Con() throws SQLException {
@@ -63,33 +132,11 @@ public class Account {
 		}
 	}
 
-	public void setAccount() throws SQLException {
-		sql = "insert into bank(ano,owner,balance,password) values(?,?,?,?)";
-		String ano = makeAno();
-		String owner = insertOwner();
-		double balance = fDeposit();
-		String password = mkPassword();
-		con = Con();
-		pstmt = con.prepareStatement(sql);
-		pstmt.setString(1, ano);
-		pstmt.setString(2, owner);
-		pstmt.setDouble(3, balance);
-		pstmt.setString(4, password);
-		int result = pstmt.executeUpdate();
-		if (result > 0) {
-			System.out.println("가입성공!");
-		} else {
-			System.out.println("가입실패!");
-		}
-	}
-
 	public void findAccount() throws SQLException {
 		System.out.println("┌────────────┐");
 		System.out.println("│    계좌목록    │");
 		System.out.println("└────────────┘");
-		sql = "SELECT ANO AS 계좌번호, OWNER AS 계좌주,BALANCE AS 잔고,PASSWORD AS 비밀번호,"
-				+ "SIGNDATE AS 가입일,LOGON AS 로그인여부 FROM BANK ORDER BY ANO";
-		con = Con();
+		sql = "select ano AS 계좌번호, owner as 계좌주,balance as 잔고,password as 비밀번호,signdate as 가입일,logon as 로그인여부 from bank order by ano";
 		pstmt = con.prepareStatement(sql);
 		ResultSet rs = pstmt.executeQuery();
 		ResultSetMetaData rsmd = pstmt.getMetaData();

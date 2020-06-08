@@ -9,9 +9,12 @@ primary key(ano)
 );
 SELECT ano AS 계좌번호, owner as 계좌주,balance as 잔고,password as 비밀번호,signdate as 가입일,logon as 로그인여부 from BANK;
 
-[출처] 2020.04.16.(오라클 함수, 데이터 항목 별칭 지정)|작성자 방지원
 drop table bank;
 truncate table bank;
 select*from bank;
 
 insert into bank(ano,owner,balance,password) values(?,?,?,?);
+
+select ano from BANK where ano='1986-247-62282';
+
+INSERT INTO BANK(ANO,OWNER,BALANCE,PASSWORD)VALUES('감자','감자','5000.0','감자')

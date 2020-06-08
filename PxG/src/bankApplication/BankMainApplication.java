@@ -20,13 +20,13 @@ public class BankMainApplication {
 			case 0:
 				break;
 			case 1:
-				account.setAccount();
+				AccountMethod.createAccount();
 				break;
 			case 2:
-				account.findAccount();
+				AccountMethod.accountList();
 				break;
 			case 3:
-				logon();
+				AccountMethod.logOnOff();
 				break;
 			case 4:
 				deposit();
@@ -49,11 +49,6 @@ public class BankMainApplication {
 				break;
 			}
 		}
-	}
-
-	private static void logon() {
-		// TODO Auto-generated method stub
-
 	}
 
 	private static void deposit() {
