@@ -83,9 +83,8 @@ public class Account {
 		System.out.println("┌────────────┐");
 		System.out.println("│    계좌목록    │");
 		System.out.println("└────────────┘");
-		sql = "select ano AS 계좌번호, owner as 계좌주,balance as 잔고,password as"
-				+ " 비밀번호,signdate as 가입일,logon as 로그인여부 from bank order by ano";
-		pstmt = Con().prepareStatement(sql);
+		sql = "select ano AS 계좌번호, owner as 계좌주,balance as 잔고,password as 비밀번호,signdate as 가입일,logon as 로그인여부 from bank order by ano";
+		pstmt = con.prepareStatement(sql);
 		ResultSet rs = pstmt.executeQuery();
 		ResultSetMetaData rsmd = pstmt.getMetaData();
 		for (int i = 1; i <= rsmd.getColumnCount(); i++) {
@@ -98,9 +97,7 @@ public class Account {
 			owner = rs.getString(2);
 			balance = rs.getDouble(3);
 			password = rs.getString(4);
-			logon = rs.getInt(6);
-			System.out.println(
-					ano + "|" + owner + "|" + balance + "￦" + "|" + password + "|" + (logon == 0 ? "로그오프" : "로그인"));
+			System.out.println(ano + "|" + owner + "|" + balance + "￦" + "|" + password + "|" + logon);
 		}
 	}
 
