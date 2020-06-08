@@ -2,3 +2,9 @@ select*from dept order by dno;
 insert into dept values(60,'SALES','DALLAS');
 INSERT INTO DEPT VALUES(70,'OPERATION','L.A');
 INSERT INTO DEPT VALUES(80,'RESEARCH','CHICAGO');
+select dno,dname,loc from dept where dno=10;
+
+SELECT*FROM DEPARTMENT;
+UPDATE DEPARTMENT LOC='엘에이'WHERE DNO=50;
+UPDATE DEPARTMENT LOC='달라스'WHERE DNO=20;
+UPDATE DEPARTMENT LOC='보스톤'WHERE DNO=40;

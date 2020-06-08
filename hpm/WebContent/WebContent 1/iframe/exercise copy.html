@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'tmonmonsori.ttfregular';
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .imglist_ul {
+            font-size: 0;
+            width: 800px;
+            margin: 0 auto;
+            padding: 10px;
+        }
+
+        .imglist_ul>li {
+            display: inline-block;
+            width: 33.3%;
+            vertical-align: top;
+            font-size: 12px;
+        }
+
+        a {
+            display: block;
+            width: auto;
+            color: #333;
+            margin: 5px 5px 10px 5px;
+        }
+
+        a .screen {
+            position: relative;
+            overflow: hidden;
+            padding-bottom: 56.25%;
+        }
+
+        a .screen img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            z-index: 1;
+        }
+
+        a .screen span {
+            display: block;
+            position: absolute;
+            transition: all .2s;
+            background: #30d0c6;
+            z-index: 2;
+        }
+
+        a .screen span:nth-child(1) {
+            top: 0;
+            height: 5px;
+            width: 0;
+        }
+
+        a .screen span:nth-child(2) {
+            top: 0;
+            right: 0;
+            width: 5px;
+            height: 0;
+        }
+
+        a .screen span:nth-child(3) {
+            bottom: 0;
+            right: 0;
+            height: 5px;
+            width: 0;
+        }
+
+        a .screen span:nth-child(4) {
+            bottom: 0;
+            left: 0;
+            width: 5px;
+            height: 0;
+        }
+
+        a:hover .screen span:nth-child(1) {
+            width: 100%;
+        }
+
+        a:hover .screen span:nth-child(2) {
+            height: 100%;
+            transition-delay: .1s;
+        }
+
+        a:hover .screen span:nth-child(3) {
+            width: 100%;
+            transition-delay: .2s;
+        }
+
+        a:hover .screen span:nth-child(4) {
+            height: 100%;
+            transition-delay: .3s;
+        }
+
+        a h3 {
+            margin: 20px 10px;
+            font-size: 25px;
+        }
+
+        a p {
+            font-family: 'NanumSquare';
+            margin: 0 10px;
+            font-size: 12px;
+            line-height: 18px;
+        }
+    </style>
+</head>
+
+<body>
+    <ul class="imglist_ul">
+        <li>
+            <a href="#">
+                <div class="screen">
+                    <span></span> <span></span> <span></span> <span></span>
+                    <img src="../medias/photo-1518611012118-696072aa579a.webp" alt="btn_naver_login">
+                </div>
+                <h3>감자튀김</h3>
+                <p>감자튀김 마시따</p>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <div class="screen">
+                    <span></span> <span></span> <span></span> <span></span>
+                    <img src="../medias/photo-1518611012118-696072aa579a.webp" alt="btn_naver_login">
+                </div>
+                <h3>감자튀김</h3>
+                <p>감자튀김 마시따</p>
+            </a>
+        </li>
+    </ul>
+</body>
+
+</html>
