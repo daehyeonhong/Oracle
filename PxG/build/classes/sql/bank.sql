@@ -14,3 +14,7 @@ truncate table bank;
 select*from bank;
 
 insert into bank(ano,owner,balance,password) values(?,?,?,?);
+
+select ano from BANK where ano='1986-247-62282';
+
+INSERT INTO BANK(ANO,OWNER,BALANCE,PASSWORD)VALUES('감자','감자','5000.0','감자')
