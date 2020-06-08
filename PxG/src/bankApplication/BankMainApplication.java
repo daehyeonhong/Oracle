@@ -7,7 +7,6 @@ public class BankMainApplication {
 	private static Scanner scanner = new Scanner(System.in);
 
 	static String[] menuArr = { "계좌생성", "계좌조회", "로그인/로그아웃", "입금", "출금", "예금", "비밀번호 변경", "회원탈퇴" };
-	private static Account account = new Account();
 
 	public static void main(String[] args) throws SQLException {
 		boolean isRun = true;
@@ -29,7 +28,7 @@ public class BankMainApplication {
 				AccountMethod.logOnOff();
 				break;
 			case 4:
-				deposit();
+				AccountMethod.deposit();
 				break;
 			case 5:
 				withdraw();
