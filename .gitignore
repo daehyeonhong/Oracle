@@ -186,4 +186,6 @@ hs_err_pid*
 *.vob
 *.wmv
 *.ovg
+
+*.Servers/
 # End of https://www.toptal.com/developers/gitignore/api/eclipse,java,oracleforms,images,video
