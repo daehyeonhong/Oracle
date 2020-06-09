@@ -15,14 +15,14 @@ public class AccountObject {
 	private static String sql;
 	private String ano, owner, password, signdate;
 	private double balance;
-	private String log;
+	private int log;
 	/*
 	 * ano[primary key] 값에 따른 row를 호출||출력 하여 각 값을 Account객체에 저장. Account 객체 타입의 변수
 	 * 리턴, 각 method에서 호출 된 findAccount_method의 값을 Account 객체에 저장 후
 	 * gettersetter_method를 이용하여 값 호출
 	 */
 
-	public AccountObject(String ano, String owner, String password, String signdate, double balance, String log) {
+	public AccountObject(String ano, String owner, String password, String signdate, double balance, int log) {
 		this.ano = ano;
 		this.owner = owner;
 		this.password = password;
@@ -63,11 +63,11 @@ public class AccountObject {
 		this.balance = balance;
 	}
 
-	public String getLog() {
+	public int getLog() {
 		return log;
 	}
 
-	public void setLog(String log) {
+	public void setLog(int log) {
 		this.log = log;
 	}
 

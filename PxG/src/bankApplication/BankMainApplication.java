@@ -28,7 +28,7 @@ public class BankMainApplication {
 				AccountMethod.logOnOff();
 				break;
 			case 4:
-				AccountMethod.deposit();
+				AccountMethod.updateAccount(AccountMethod.deposit());
 				break;
 			case 5:
 				withdraw();
@@ -48,11 +48,6 @@ public class BankMainApplication {
 				break;
 			}
 		}
-	}
-
-	private static void deposit() {
-		// TODO Auto-generated method stub
-
 	}
 
 	private static void withdraw() {
