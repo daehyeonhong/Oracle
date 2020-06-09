@@ -22,7 +22,10 @@ public class A {
 	}
 
 	// instance member
-	class B {}
+	class B {
+	}
+
 	// static member
-	static class C {}
+	static class C {
+	}
 }
