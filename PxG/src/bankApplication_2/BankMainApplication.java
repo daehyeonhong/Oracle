@@ -1,4 +1,4 @@
-package bankApplication;
+package bankApplication_2;
 
 import java.sql.SQLException;
 import java.util.Scanner;
@@ -25,16 +25,16 @@ public class BankMainApplication {
 				AccountMethod.accountList();
 				break;
 			case 3:
-				AccountMethod.updateAccount(AccountMethod.logOnOff());
+				AccountMethod.logOnOff();
 				break;
 			case 4:
-				AccountMethod.updateAccount(AccountMethod.deposit());
+				AccountMethod.deposit();
 				break;
 			case 5:
-				AccountMethod.updateAccount(AccountMethod.withdraw());
+				AccountMethod.withdraw();
 				break;
 			case 6:
-				AccountMethod.updateAccount(AccountMethod.transfer());
+				AccountMethod.transfer();
 				break;
 			case 7:
 				changePassword();
@@ -48,16 +48,6 @@ public class BankMainApplication {
 				break;
 			}
 		}
-	}
-
-	private static void withdraw() {
-		// TODO Auto-generated method stub
-
-	}
-
-	private static void transfer() {
-		// TODO Auto-generated method stub
-
 	}
 
 	private static void changePassword() {
@@ -74,7 +64,7 @@ public class BankMainApplication {
 	private static int selectMenu() {
 		System.out.println(
 				"┌───────────────┬───────────────┬───────────────┬───────┬───────┬───────┬───────────────┬────────┐");
-		System.out.println("│1.계좌생성\t│2.계좌조회\t│3.로그인/로그아웃\t│4.입금\t│5.출금\t│6.예금\t│7.비밀번호 변경\t│8.회원탈퇴│");
+		System.out.println("│1.계좌생성\t│2.계좌조회\t│3.로그온/로그오프\t│4.입금\t│5.출금\t│6.예금\t│7.비밀번호 변경\t│8.회원탈퇴│");
 		System.out.println(
 				"└───────────────┴───────────────┴───────────────┴───────┴───────┴───────┴───────────────┴────────┘");
 		System.out.print("메뉴를 선택하세요>");
