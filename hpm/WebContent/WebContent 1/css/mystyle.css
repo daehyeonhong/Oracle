@@ -1,0 +1,313 @@
+@charset "UTF-8";
+
+* {
+	box-sizing: border-box;
+	padding: 0px;
+	margin: 0px;
+}
+
+body {
+	background-color: #f3f1e9;
+}
+
+header {
+	height: 60px;
+	margin: 10px;
+}
+
+nav {
+	margin: 10px;
+}
+
+nav ul {
+	list-style: none;
+	text-align: center;
+	border-top: 1px solid red;
+	border-bottom: 1px solid red;
+	padding: 10px 0;
+}
+
+nav ul li {
+	display: inline;
+	text-transform: uppercase;
+	padding: 0 10px;
+	letter-spacing: 10px;
+}
+
+nav ul li a {
+	text-decoration: none;
+	color: black;
+}
+
+nav ul li a:hover {
+	text-decoration: underline;
+}
+
+aside#left {
+	width: 175px;
+	margin-top: 20px;
+	float: left;
+}
+
+#left h4 {
+	font-family: Arial, helvetica, sans-serif;
+	font-size: 20px;
+}
+
+#left ul { 
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 15px;
+	color: #fff;
+	list-style: none;
+	text-indent: 15px;
+}
+
+#left ul li { /* id="left"블럭 요소내의 ul 내의 li들의 스타일 */
+	background: #3f3f3f;
+	line-height: 28px;
+	border-bottom: 1px solid #333;
+}
+
+#left ul li a { /* id="left"블럭 요소내의 ul 내의 li 내의 <a>태그의 스타일 */
+	text-decoration: none;
+	color: #fff;
+	display: block;
+}
+
+#left ul li a:hover { /* id="left" 요소내의 ul내의 li내의 a태그에 마우스를 올렸을 때*/
+	background: #d40203;
+}
+
+#left ul li#active { /* id="left"요소 내의 ul내의 li중에 active상태(클릭)인 것*/
+	background: #d40203;
+}
+
+#main {/* id="main"요소의 스타일 */
+	font-family: Arial, Helvetica, Sans-serif; /* font */
+	font-size: 12px; /* 글자 크기 */
+	color: #464646; /* 글자색 */
+	overflow: hidden; /* 요서가 범위를 벗어났을 때, 벗어난 요소 숨기기 */
+	float: left; /* 왼쪽으로 floating */
+	width: 800px; /* 폭 지정 */
+}
+
+aside #right { /* 시맨틱 태그 aside 중에 id="right"인 요소 스타일.*/
+	padding: 0px;
+	margin-left: 10px;
+	width: 200px;
+	float: left;
+}
+
+#shopcart { /* id="login"요소 스타일 지정 */
+	margin-bottom: 20px;
+}
+
+#login { /* id="login" 요소 스타일 지정*/
+	margin-top: 40px;
+}
+
+footer { /* 시맨틱 태그 footer 스타일 지정*/
+	width: 100%; /* 부모요소 크기만큼의 폭 */
+	height: 50px;/* 높이 */
+	clear: both; /* 위에서 설정한 floating 속성 제거(양쪽) */
+	background-image: url('../medias/footer_bg.gif');/* 배경 이미지*/
+	background-position: top left; /* 왼쪽 상단 */
+	background-repeat: repeat-x; /* x(가로)축 반복 */
+}
+#acc{
+	text-align: center;
+}
+#account{
+	position: relative;
+	height: 300px;
+	width: 520px;
+	padding: 58px 69px 139px;
+	box-sizing: border-box;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 50px;
+	border: 1px solid darkgrey;
+	border-radius: 20px;
+}
+#loginbox{
+	font-size: 1em;
+	height: 70px;
+	width: 100px;
+	background-color: #E8CEC2;
+	border-radius: 5px;
+}
+.my{
+	width: 260px;
+	height: 30px;
+}
+#table {
+	border: 1px solid salmon;
+	margin-left: auto;
+	margin-right: auto;
+	height: 700px;
+	width: 1200px;
+}
+#innertable{
+	padding: 10px;
+	border: 1px solid slateblue;
+	margin-top: 50px;
+	margin-left: auto;
+	margin-right: auto;
+	height: 500px;
+	width: 1100px;
+	list-style-type: none;
+	font-size: 20px;
+	line-height: 50px;
+}
+
+#loginbox {
+	position: relative;
+	bottom: 20px;
+}
+
+h2 {
+	text-align: center;
+}
+.headc {
+	text-align: center;
+	position: absolute;
+	padding-left: auto;
+	padding-right: auto;
+	margin-bottom: 20px;
+}
+
+.iframediv {
+	box-sizing: border-box;
+	width: 48.8%;
+	height: 298px;
+	float: left;
+	border: 1px dotted red;
+}
+
+
+.imglist_ul {
+	font-size: 0;
+	width: 800px;
+	margin: 0 auto;
+}
+
+.imglist_ul>li {
+	display: inline-block;
+	width: 96%;
+	vertical-align: top;
+	font-size: 12px;
+}
+
+.iframeimg {
+	text-decoration: none;
+	display: block;
+	width: auto;
+	color: #333;
+	margin: 5px 5px 10px 5px;
+}
+
+.iframeimg .screen {
+	position: relative;
+	overflow: hidden;
+	padding-bottom: 56.25%;
+}
+
+.iframeimg .screen img {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 100%;
+	z-index: 1;
+}
+
+.iframeimg .screen span {
+	display: block;
+	position: absolute;
+	transition: all .2s;
+	z-index: 2;
+}
+
+.iframeimg .screen span:nth-child(1) {
+	top: 0;
+	height: 5px;
+	width: 0;
+}
+
+.iframeimg .screen span:nth-child(2) {
+	top: 0;
+	right: 0;
+	width: 5px;
+	height: 0;
+}
+
+.iframeimg .screen span:nth-child(3) {
+	bottom: 0;
+	right: 0;
+	height: 5px;
+	width: 0;
+}
+
+.iframeimg .screen span:nth-child(4) {
+	bottom: 0;
+	left: 0;
+	width: 5px;
+	height: 0;
+}
+
+.iframeimg .screen span:nth-child(5) {
+	position: relative;
+	text-align: center;
+	margin: auto;
+	color: white;
+	font-size: 50px;
+	z-index: -1;
+}
+
+.iframeimg:hover .screen span:nth-child(1) {
+	width: 100%;
+}
+
+.iframeimg:hover .screen span:nth-child(2) {
+	height: 100%;
+	transition-delay: .1s;
+}
+
+.iframeimg:hover .screen span:nth-child(3) {
+	width: 100%;
+	transition-delay: .2;
+}
+
+.iframeimg:hover .screen span:nth-child(4) {
+	height: 100%;
+	transition-delay: .3s;
+}
+
+.iframeimg:hover .screen span:nth-child(5) {
+	background-color: #464646;
+	position: relative;
+	text-align: center;
+	margin: auto;
+	color: white;
+	z-index: 2;
+}
+
+.iframeimg h3 {
+	margin: 20px 10px;
+	font-size: 25px;
+}
+
+.iframeimg p {
+	font-family: Arial, Helvetica, sans-serif;
+	margin: 0 10px;
+	font-size: 12px;
+	line-height: 18px;
+}
+
+#hov{
+	opacity: 0;
+}
+.iframeimg:hover #hov{
+	margin: 5px 5px;
+	opacity: 1;
+}
