@@ -17,7 +17,12 @@ insert into bank(ano,owner,balance,password) values(?,?,?,?);
 
 select ano from BANK where ano='1986-247-62282';
 
-INSERT INTO BANK(ANO,OWNER,BALANCE,PASSWORD)VALUES('감자','감자','5000.0','감자');
+INSERT INTO BANK(ANO,OWNER,BALANCE,PASSWORD)VALUES('감자','감자',5000.0,'감자');
 UPDATE BANK SET OWNER='1',BALANCE=2,PASSWORD='3',LOGON=1 WHERE ANO='7253-200-64259';
 UPDATE BANK SET OWNER,BALANCE,PASSWORD,LOGON VALUES('1',2,'3','0')WHERE ANO='7253-200-64259';
-UPDATE BANK SET * WHERE ANO=7253-200-64259
+UPDATE BANK SET * WHERE ANO=7253-200-64259;
+select*from bank where ano = '1';
+insert into bank(ano,owner,balance,password)values('1','1',500000000,'1');
+insert into bank(ano,owner,balance,password)values('2','2',500000000,'2');
+UPDATE BANK SET BALANCE=1115000 WHERE ANO='1';
+UPDATE BANK SET PASSWORD=1 WHERE ANO=1

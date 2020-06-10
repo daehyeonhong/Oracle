@@ -6,14 +6,16 @@ import java.util.Scanner;
 public class BankMainApplication {
 	private static Scanner scanner = new Scanner(System.in);
 
-	static String[] menuArr = { "계좌생성", "계좌조회", "로그인/로그아웃", "입금", "출금", "예금", "비밀번호 변경", "회원탈퇴" };
+	static String[] menuArr = { "계좌생성", "계좌조회", "로그온/로그오프", "입금", "출금", "예금", "비밀번호 변경", "회원탈퇴" };
 
 	public static void main(String[] args) throws SQLException {
 		boolean isRun = true;
 		while (isRun) {
 			int menu = selectMenu();
-			if (menu > 0 && menu <= menuArr.length) {
-				System.out.println(menuArr[menu - 1]);
+			if (menu > 0) {
+				if (menu <= menuArr.length) {
+					System.out.println(menuArr[menu - 1]);
+				}
 			}
 			switch (menu) {
 			case 0:
@@ -37,10 +39,10 @@ public class BankMainApplication {
 				AccountMethod.transfer();
 				break;
 			case 7:
-				changePassword();
+				AccountMethod.changePassword();
 				break; // 비밀번호를 변경하는 메소드 추가
 			case 8:
-				secession();
+				AccountMethod.secession();
 				break;
 			default:
 				isRun = !isRun;
@@ -48,16 +50,6 @@ public class BankMainApplication {
 				break;
 			}
 		}
-	}
-
-	private static void changePassword() {
-		// TODO Auto-generated method stub
-
-	}
-
-	private static void secession() {
-		// TODO Auto-generated method stub
-
 	}
 
 	// ┌┐└┘│ ┬───────────────┴
@@ -69,11 +61,10 @@ public class BankMainApplication {
 				"└───────────────┴───────────────┴───────────────┴───────┴───────┴───────┴───────────────┴────────┘");
 		System.out.print("메뉴를 선택하세요>");
 		int insertNum = scanner.nextInt();
-		if (insertNum > 0 && insertNum <= menuArr.length) {
-			System.out.print(insertNum + "번 ");
-		} else {
-			System.out.println("메뉴 확인 후 다시 선택하세요.");
-			insertNum = 0;
+		if (insertNum > 0) {
+			if (insertNum <= menuArr.length) {
+				System.out.print(insertNum + "번 ");
+			}
 		}
 		return insertNum;
 	}

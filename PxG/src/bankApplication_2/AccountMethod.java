@@ -5,18 +5,19 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Scanner;
 
 public class AccountMethod {
-	private static Account account;
+	private static Scanner scanner = new Scanner(System.in);
 	private static Connection con;
 	private static PreparedStatement pstmt;
 	private static ResultSet rs;
-	private static Scanner scanner = new Scanner(System.in);
-	private static int log, result;
+	private static Account account;
+	private static int log;
 	private static String sql, ano, owner, password, signdate;
 	private static char yesNo;
-	private static double balance;
+	private static double balance, amount;
 	private static final String LOGON = "로그온";
 	private static final String LOGOFF = "로그오프";
 
@@ -27,15 +28,41 @@ public class AccountMethod {
 		return con;
 	}
 
+	// PreparedStatement 생성
+	private static PreparedStatement pstmt(String sql) throws SQLException {
+		Dao dao = Dao.getInstance();
+		con = dao.getConnection();
+		pstmt = con.prepareStatement(sql);
+		return pstmt;
+	}
+
+	// 실행 확인 입력
+	private static boolean yesNo() {
+		System.out.println("[Y/N]");
+		yesNo = scanner.next().charAt(0);
+		if (yesNo == 'y' || yesNo == 'Y') {
+			return true;
+		}
+		return false;
+	}
+
+	// DB 반영 단순 확인
+	private static void chkUpdate(int result) {
+		if (result > 0) {
+			System.out.println(" 요청 성공!");
+		} else {
+			System.out.println(" 요청 실패!");
+		}
+	}
+
 	// 계좌 생성
-	public static void createAccount() throws SQLException {
+	static void createAccount() throws SQLException {
 		ano = createAno();
 		owner = insertOwner();
 		balance = initialDeposit();
 		password = createPassword();
 		sql = "INSERT INTO BANK(ANO,OWNER,BALANCE,PASSWORD) VALUES(?,?,?,?)";
-		con = Con();
-		pstmt = con.prepareStatement(sql);
+		pstmt(sql);
 		pstmt.setString(1, ano);
 		pstmt.setString(2, owner);
 		pstmt.setDouble(3, balance);
@@ -95,16 +122,6 @@ public class AccountMethod {
 		return null;
 	}
 
-	// 실행 확인 입력
-	private static boolean yesNo() {
-		System.out.println("[Y/N]");
-		yesNo = scanner.next().charAt(0);
-		if (yesNo == 'y' || yesNo == 'Y') {
-			return true;
-		}
-		return false;
-	}
-
 	// 비밀번호 확인
 	private static boolean chkPwd(Account account) {
 		System.out.print("비밀번호를 입력하세요> ");
@@ -129,52 +146,22 @@ public class AccountMethod {
 	// 초기 입금
 	private static double initialDeposit() {
 		System.out.print("초기 입금액을 입력하세요>");
-		balance = scanner.nextDouble();
-		if (balance > 0) {
-			System.out.print("초기 입금액이 " + balance + "￦이 맞습니까?");
+		amount = scanner.nextDouble();
+		if (amount > 0) {
+			System.out.print("초기 입금액이 " + amount + "￦이 맞습니까?");
 			if (yesNo()) {
-				return balance;
+				return amount;
 			}
 		}
 		System.out.println("잘못된 입력으로 초기 입금액은 0￦ 입니다.");
 		return 0;
 	}
 
-	// 입금
-	static void deposit() throws SQLException {
-		System.out.print("입금");
-		account = findAccount();
-		if (account != null) {
-			if (chkLog(account)) {
-				System.out.print(account.getOwner() + "님 환영합니다.\n입금액을 입력하세요>");
-				balance = scanner.nextDouble();
-				System.out.print("입금액이 " + balance + "￦이 맞습니까?");
-				if (yesNo()) {
-					if (balance > 0) {
-						System.out.print(account.getOwner() + "님 입금");
-						con = Con();
-						sql = "UPDATE BANK SET BALANCE=? WHERE ANO=?";
-						pstmt = con.prepareStatement(sql);
-						account.setBalance(account.getBalance() + balance);
-						if (result > 0) {
-							System.out.println("요청 성공!");
-						} else {
-							System.out.println("요청 실패!");
-						}
-					}
-				}
-				System.out.println("잘못된 입력으로 종료합니다.");
-			}
-		}
-	}
-
 	// 계좌 조회
-	static Account findAccount() throws SQLException {
+	private static Account findAccount() throws SQLException {
 		System.out.print("계좌번호 입력> ");
 		ano = scanner.next();
-		con = Con();
-		sql = "SELECT*FROM BANK WHERE ANO=?";
-		pstmt = con.prepareStatement(sql);
+		pstmt("SELECT*FROM BANK WHERE ANO=?");
 		pstmt.setString(1, ano);
 		rs = pstmt.executeQuery();
 		if (rs.next()) {
@@ -191,14 +178,15 @@ public class AccountMethod {
 	}
 
 	// 로그인 상태 조회 DB의 column값
-	static String chkLog(int log) {
+	private static String chkLog(int log) {
 		if (log == 1) {
 			return LOGON;
 		}
 		return LOGOFF;
 	}
 
-	static boolean chkLog(Account account) {
+	// account계정의 로그인 상태 조회
+	private static boolean chkLog(Account account) {
 		if (account.getLog() == 1) {
 			return true;
 		}
@@ -211,10 +199,8 @@ public class AccountMethod {
 		System.out.println("┌────────────┐");
 		System.out.println("│    계좌목록    │");
 		System.out.println("└────────────┘");
-		sql = "SELECT ANO AS 계좌번호,OWNER AS 계좌주,BALANCE AS 잔고,PASSWORD AS 비밀번호,SIGNDATE AS 가입일,"
-				+ "LOG AS 로그인여부 FROM BANK ORDER BY ANO";
-		con = Con();
-		pstmt = con.prepareStatement(sql);
+		pstmt("SELECT ANO AS 계좌번호,OWNER AS 계좌주,BALANCE AS 잔고,PASSWORD AS 비밀번호,TO_CHAR(SIGNDATE,'RRRR/MM/DD HH24:MI:SS')"
+				+ " AS 가입일,LOG AS 로그인여부 FROM BANK ORDER BY ANO");
 		ResultSet rs = pstmt.executeQuery();
 		ResultSetMetaData rsmd = pstmt.getMetaData();
 		for (int i = 1; i <= rsmd.getColumnCount(); i++) {
@@ -227,8 +213,8 @@ public class AccountMethod {
 			balance = rs.getDouble(3);
 			password = rs.getString(4);
 			signdate = rs.getString(5);
-			System.out.println(ano + "\t|" + owner + "\t\t|" + balance + "￦" + "\t\t|" + password + "\t|" + signdate
-					+ "\t|" + chkLog(rs.getInt(6)));
+			System.out.println(ano + "\t|" + owner + "\t\t|" + balance + "￦" + "\t|" + password + "\t\t|" + signdate
+					+ "|" + chkLog(rs.getInt(6)));
 		}
 	}
 
@@ -240,60 +226,85 @@ public class AccountMethod {
 		System.out.print("로그온/오프 하려는 ");
 		account = findAccount();
 		if (account != null) {
-			con = Con();
-			sql = "UPDATE BANK SET LOG=? WHERE ANO=?";
-			pstmt = con.prepareStatement(sql);
+			pstmt("UPDATE BANK SET LOG=? WHERE ANO=?");
 			if (account.getLog() == 1) {
 				System.out.print(account.getOwner() + "님 로그오프 하시겠습니까?");
 				if (yesNo()) {
 					System.out.print(account.getOwner() + "님 로그오프");
-					account.setLog(0);
+					pstmt.setInt(1, 0);
+					pstmt.setString(2, account.getAno());
+					pstmt.executeUpdate();
+					chkUpdate(pstmt.getUpdateCount());
 				} else {
 					System.out.println("로그오프 요청이 취소되었습니다.");
 				}
 			} else {
 				if (chkPwd(account)) {
 					System.out.print(account.getOwner() + "님 로그온");
-					account.setLog(1);
+					pstmt.setInt(1, 1);
+					pstmt.setString(2, account.getAno());
+					pstmt.executeUpdate();
+					chkUpdate(pstmt.getUpdateCount());
 				}
 			}
-			pstmt.setInt(1, account.getLog());
-			pstmt.setString(2, account.getAno());
-			pstmt.executeUpdate();
-			result = pstmt.getUpdateCount();
-			if (result > 0) {
-				System.out.println(" 요청 성공!");
-			} else {
-				System.out.println(" 요청 실패!");
+		}
+	}
+
+	// 입금
+	static void deposit() throws SQLException {
+		System.out.print("입금");
+		account = findAccount();
+		if (account != null) {
+			if (chkLog(account)) {
+				System.out.print(account.getOwner() + "님 환영합니다.\n입금액을 입력하세요>");
+				amount = scanner.nextDouble();
+				if (amount >= 0) {
+					System.out.print("입금액이 " + amount + "￦이 맞습니까?");
+					if (yesNo()) {
+						if (amount > 0) {
+							System.out.print(account.getOwner() + "님 입금");
+							pstmt("UPDATE BANK SET BALANCE=BALANCE+? WHERE ANO=?");
+							pstmt.setDouble(1, amount);
+							pstmt.setString(2, account.getAno());
+							pstmt.executeUpdate();
+							chkUpdate(pstmt.getUpdateCount());
+						}
+					}
+				} else {
+					System.out.println("잘못된 입력으로 종료합니다.");
+				}
 			}
 		}
 	}
 
 	// 출금
-	static Account withdraw() throws SQLException {
+	static void withdraw() throws SQLException {
 		System.out.println("출금 ");
 		account = findAccount();
 		if (account != null) {
 			if (chkLog(account)) {
 				System.out.print(account.getOwner() + "님 환영합니다.\n출금액을 입력하세요>");
-				balance = scanner.nextDouble();
-				System.out.print("출금액이 " + balance + "￦이 맞습니까?");
+				amount = scanner.nextDouble();
+				System.out.print("출금액이 " + amount + "￦이 맞습니까?");
 				if (yesNo()) {
-					if (balance > 0 && (account.getBalance() >= balance)) {
+					if (amount > 0 && (account.getBalance() >= amount)) {
 						if (chkPwd(account)) {
-							account.setBalance(account.getBalance() - balance);
+							pstmt("UPDATE BANK SET BALANCE=BALANCE-? WHERE ANO=?");
+							pstmt.setDouble(1, amount);
+							pstmt.setString(2, account.getAno());
+							pstmt.executeQuery();
 							System.out.print(account.getOwner() + "님 출금");
-							return account;
+							chkUpdate(pstmt.getUpdateCount());
 						}
+					} else {
+						System.out.println("잘못된 입력으로 종료합니다.");
 					}
 				}
-				System.out.println("잘못된 입력으로 종료합니다.");
 			}
 		}
-		return null;
 	}
 
-	// 계좌이체
+	// 예금
 	static void transfer() throws SQLException {
 		System.out.print("이체 실행 ");
 		Account account = findAccount();
@@ -304,30 +315,31 @@ public class AccountMethod {
 				if (targetAccount != null) {
 					if ((!targetAccount.getAno().equals(account.getAno()))) {
 						System.out.print(account.getOwner() + "님 환영합니다.\n이체 금액을 입력하세요> ");
-						balance = scanner.nextDouble();
-						System.out.print("이체 금액이 " + balance + "￦이 맞습니까?");
+						amount = scanner.nextDouble();
+						System.out.print("이체 금액이 " + amount + "￦이 맞습니까?");
 						if (yesNo()) {
-							if (balance > 0 && (account.getBalance() >= balance)) {
+							if (amount > 0 && (account.getBalance() >= amount)) {
 								if (chkPwd(account)) {
-									System.out.print(targetAccount.getOwner() + "님에게 " + balance + "￦ 이체.\n실행할까요?");
+									System.out.print(targetAccount.getOwner() + "님에게 " + amount + "￦ 이체.\n실행할까요?");
 									if (yesNo()) {
-										account.setBalance(account.getBalance() - balance);
-										targetAccount.setBalance(targetAccount.getBalance() + balance);
-										System.out
-												.print(account.getOwner() + "님 " + targetAccount.getOwner() + "님에게 이체");
+										System.out.println(
+												account.getOwner() + "님 " + targetAccount.getOwner() + "님에게 이체");
 										con = Con();
+										Statement stmt = con.createStatement();
 										con.setAutoCommit(false);
-										sql = "UPDATE BANK SET BALANCE=? WHERE ANO=?";
-										pstmt = con.prepareStatement(sql);
-										pstmt.setDouble(1, account.getBalance());
-										pstmt.setString(2, account.getAno());
-										pstmt.addBatch();
-										pstmt.setDouble(1, targetAccount.getBalance());
-										pstmt.setString(2, targetAccount.getAno());
-										pstmt.addBatch();
-										int[] result = pstmt.executeBatch();
+										sql = "UPDATE BANK SET BALANCE=BALANCE - " + amount + " WHERE ANO='"
+												+ account.getAno() + "'";
+										stmt.addBatch(sql);
+										sql = "UPDATE BANK SET BALANCE=BALANCE + " + amount + " WHERE ANO='"
+												+ targetAccount.getAno() + "'";
+										stmt.addBatch(sql);
+										int[] result = stmt.executeBatch();
+										for (int i : result) {
+											System.out.println(i);
+										}
 										boolean isAllCompleted = false;
 										for (int i = 0; i < result.length; i++) {
+											System.out.println("*");
 											if (result[i] > 0) {
 												isAllCompleted = true;
 											} else {
@@ -336,8 +348,10 @@ public class AccountMethod {
 											}
 										}
 										if (isAllCompleted) {
+											System.out.println("이체 성공");
 											con.commit();
 										} else {
+											System.out.println("이체 실패");
 											con.rollback();
 										}
 									} else {
@@ -355,5 +369,51 @@ public class AccountMethod {
 			}
 		}
 		con.setAutoCommit(true);
+	}
+
+	// 비밀번호 변경
+	static void changePassword() throws SQLException {
+		System.out.print("비밀번호 변경");
+		account = findAccount();
+		if (account != null) {
+			if (chkLog(account)) {
+				System.out.print(account.getOwner() + "님 비밀번호 변경을 위해 ");
+				if (chkPwd(account)) {
+					System.out.print("새로운 비밀번호 입력> ");
+					password = scanner.next();
+					if (chkPwd(password)) {
+						System.out.println("정말 비밀번호를 변경하시겠습니까?");
+						if (yesNo()) {
+							pstmt("UPDATE BANK SET PASSWORD=? WHERE ANO=?");
+							pstmt.setString(1, password);
+							pstmt.setString(2, account.getAno());
+							pstmt.executeQuery();
+							System.out.print("비밀변경 ");
+							chkUpdate(pstmt.getUpdateCount());
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// 회원 탈퇴
+	static void secession() throws SQLException {
+		System.out.print("계정 탈퇴");
+		account = findAccount();
+		if (account != null) {
+			if (chkLog(account)) {
+				System.out.println(account.getOwner() + "님 계정탈퇴.");
+				if (chkPwd(account)) {
+					System.out.println("정말 탈퇴하시겠습니까?");
+					if (yesNo()) {
+						pstmt("DELETE FROM BANK WHERE ANO=?");
+						pstmt.setString(1, account.getAno());
+						pstmt.executeUpdate();
+						chkUpdate(pstmt.getUpdateCount());
+					}
+				}
+			}
+		}
 	}
 }// class

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Furniture</title>
+    <link rel="stylesheet" href="../css/mystyle.css">
+    <style>
+        .imglist_ul {
+            font-size: 0;
+            width: 800px;
+            margin: 0 auto;
+            padding: 10px;
+        }
+
+        a {
+            display: block;
+            width: auto;
+            color: #333;
+            margin: 5px 5px 10px 5px;
+        }
+
+        a #ikea span {
+            display: block;
+            position: absolute;
+            transition: all 1s;
+            background: #006AA7;
+            z-index: 2;
+        }
+
+        a #ikea span:nth-child(1) {
+            top: 0;
+            height: 80px;
+            width: 0;
+        }
+
+        a #ikea span:nth-child(2) {
+            top: 0;
+            right: 0;
+            width: 80px;
+            height: 0;
+        }
+
+        a #ikea span:nth-child(3) {
+            bottom: 0;
+            right: 0;
+            height: 80px;
+            width: 0;
+        }
+
+        a #ikea span:nth-child(4) {
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 0;
+        }
+
+        a #ikea span:nth-child(5) {
+            top: 80px;
+            text-align: center;
+            width: 100%;
+            height: 100%;
+            background: #FECC00;
+            opacity: 0;
+            color: #006AA7;
+            font-size: 210px;
+            font-weight: bold;
+        }
+
+        a:hover #ikea span:nth-child(1) {
+            width: 100%;
+            z-index: 5;
+        }
+
+        a:hover #ikea span:nth-child(2) {
+            height: 100%;
+            transition-delay: 1s;
+            z-index: 5;
+        }
+
+        a:hover #ikea span:nth-child(3) {
+            width: 100%;
+            transition-delay: 2s;
+            z-index: 5;
+        }
+
+        a:hover #ikea span:nth-child(4) {
+            height: 100%;
+            transition-delay: 3s;
+            z-index: 5;
+        }
+
+        a:hover #ikea span:nth-child(5) {
+            transition-delay: 4s;
+            opacity: 1;
+            z-index: 4;
+        }
+
+        a h3 {
+            margin: 20px 10px;
+            font-size: 25px;
+        }
+
+        a p {
+            font-family: 'NanumSquare';
+            margin: 0 10px;
+            font-size: 12px;
+            line-height: 18px;
+        }
+
+        sup {
+            position: relative;
+            font-size: 20px;
+            margin-top: 0px;
+        }
+    </style>
+</head>
+
+<body>
+    <ul class="imglist_ul">
+        <li>
+            <a class="iframeimg" href="https://www.ikea.com/kr/ko/" target="_blank">
+                <div id="ikea" class="screen">
+                    <span></span><span></span><span></span><span></span> <span>IKEA<sup>®</sup></span>
+                    <img src="../medias/ikea.jpg" alt="IKEA">
+                </div>
+                <h3>IKEA</h3>
+                <p>국군은 국가의 안전보장과 국토방위의 신성한 의무를 수행함을 사명으로 하며, 그 정치적 중립성은 준수된다. 국회의 정기회는 법률이 정하는 바에 의하여 매년 1회 집회되며, 국회의
+                    임시회는 대통령 또는 국회재적의원 4분의 1 이상의 요구에 의하여 집회된다.</p>
+            </a>
+        </li>
+    </ul>
+</body>
+
+</html>
