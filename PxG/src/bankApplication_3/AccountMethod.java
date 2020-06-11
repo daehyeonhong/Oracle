@@ -348,16 +348,20 @@ public class AccountMethod {
 				if (chkPwd(account)) {
 					System.out.print("새로운 비밀번호 입력> ");
 					password = scanner.next();
-					if (chkPwd(password)) {
-						System.out.println("정말 비밀번호를 변경하시겠습니까?");
-						if (yesNo()) {
-							pstmt("UPDATE BANK SET PASSWORD=? WHERE ANO=?");
-							pstmt.setString(1, password);
-							pstmt.setString(2, account.getAno());
-							pstmt.executeQuery();
-							System.out.print("비밀변경 ");
-							chkUpdate(pstmt.getUpdateCount());
+					if (!(account.getPassword().equals(password))) {
+						if (chkPwd(password)) {
+							System.out.println("정말 비밀번호를 변경하시겠습니까?");
+							if (yesNo()) {
+								pstmt("UPDATE BANK SET PASSWORD=? WHERE ANO=?");
+								pstmt.setString(1, password);
+								pstmt.setString(2, account.getAno());
+								pstmt.executeQuery();
+								System.out.print("비밀변경 ");
+								chkUpdate(pstmt.getUpdateCount());
+							}
 						}
+					} else {
+						System.out.println("현재 사용하는 비밀번호로 변경할 수 없습니다.");
 					}
 				}
 			}
