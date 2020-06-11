@@ -1,4 +1,4 @@
-package bankApplication_2;
+package bankApplication_3;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -40,19 +40,12 @@ public class AccountMethod {
 	private static boolean yesNo() {
 		System.out.println("[Y/N]");
 		yesNo = scanner.next().charAt(0);
-		if (yesNo == 'y' || yesNo == 'Y') {
-			return true;
-		}
-		return false;
+		return ((yesNo == 'y' || yesNo == 'Y') ? true : false);
 	}
 
 	// DB 반영 단순 확인
 	private static void chkUpdate(int result) {
-		if (result > 0) {
-			System.out.println(" 요청 성공!");
-		} else {
-			System.out.println(" 요청 실패!");
-		}
+		System.out.println(result > 0 ? " 요청 성공!" : " 요청 실패!");
 	}
 
 	// 계좌 생성
@@ -96,11 +89,7 @@ public class AccountMethod {
 		System.out.print("고객님의 성함을 입력하세요>");
 		String owner = scanner.next();
 		System.out.print(owner + "님이 맞습니까?");
-		if (yesNo()) {
-			System.out.println(owner);
-			return owner;
-		}
-		return null;
+		return (yesNo() ? owner : null);
 	}
 
 	// 비밀번호 생성
@@ -119,35 +108,23 @@ public class AccountMethod {
 	private static boolean chkPwd(Account account) {
 		System.out.print("비밀번호를 입력하세요> ");
 		password = scanner.next();
-		if (account.getPassword().equals(password)) {
-			return true;
-		}
-		System.out.println("비밀번호 확인 후 다시 시도하세요.");
-		return false;
+		return (account.getPassword().equals(password) ? true : false);
 	}
 
 	// 비밀번호 재확인
 	private static boolean chkPwd(String password1) {
 		System.out.print("비밀번호 확인> ");
 		String password2 = scanner.next();
-		if (password1.equals(password2)) {
-			return true;
-		}
-		return false;
+		return (password1.equals(password2) ? true : false);
 	}
 
 	// 초기 입금
 	private static double initialDeposit() {
-		System.out.print("초기 입금액을 입력하세요>");
+		System.out.print("초기 입금액을 입력하세요> ");
 		amount = scanner.nextDouble();
-		if (amount > 0) {
-			System.out.print("초기 입금액이 " + amount + "￦이 맞습니까?");
-			if (yesNo()) {
-				return amount;
-			}
-		}
-		System.out.println("잘못된 입력으로 초기 입금액은 0￦ 입니다.");
-		return 0;
+		balance = amount > 0 ? amount : 0;
+		System.out.println("초기 입금 액이" + balance + "￦ 이 맞습니까?");
+		return (yesNo() ? balance : 0);
 	}
 
 	// 계좌 조회
@@ -172,10 +149,7 @@ public class AccountMethod {
 
 	// 로그인 상태 조회 DB의 column값
 	private static String chkLog(int log) {
-		if (log == 1) {
-			return LOGON;
-		}
-		return LOGOFF;
+		return ((log == 1) ? LOGON : LOGOFF);
 	}
 
 	// account계정의 로그인 상태 조회

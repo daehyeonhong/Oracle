@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <style>
+        body {
+            margin: 0;
+            /* 상,하,좌,우 */
+        }
+
+        #wrap {
+            width: 960px;
+            background: #ccc;
+            position: relative;
+            left: 50%;
+            margin-left: -480px;
+        }
+
+        #header {
+            background: #eee;
+            padding: 20px;
+            /* 상,하,좌,우 */
+        }
+
+        #header .logo {
+            float: left;
+        }
+
+        #content {
+            position: relative;
+            height: auto;
+        }
+
+        #content img {
+            width: 100%;
+            /* 부모 요소의 폭만큼 늘이기 */
+        }
+
+        #footer {
+            background: #000;
+            height: 50px;
+            text-align: center;
+            padding: 20px;
+        }
+
+        #footer span {
+            color: #fff;
+        }
+
+        #mainContent {
+            float: right;
+            width: 700px;
+            padding: 20px;
+        }
+
+        #subContent {
+            float: left;
+            width: 220px;
+            height: 100%;
+            /* 감싸고 있는 부모요소의 높이만큼 */
+            position: absolute;
+            /* 부모 중에 relative인 요소가 기준 */
+            background: #ee8;
+        }
+
+        .clear {
+            clear: both;
+        }
+
+        a {
+            text-decoration: none;
+            color: #000;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrap">
+        <div id="header">
+            <span class="logo"><img src="img/logo.png" alt="사이트 로고"></span>
+            <h1>CSS활용강의</h1>
+            <h2>레이아웃2-이단 레이아웃 만들기</h2>
+        </div>
+        <div id="content">
+            <div id="mainContent">
+                <h3>레이아웃 만드는 방법</h3>
+                <img src="img/bg1.jpg" alt="배경이미지">
+                <p>국회는 헌법개정안이 공고된 날로부터 60일 이내에 의결하여야 하며, 국회의 의결은 재적의원 3분의 2 이상의 찬성을 얻어야 한다. 계엄을 선포한 때에는 대통령은 지체없이 국회에
+                    통고하여야 한다. 민주평화통일자문회의의 조직·직무범위 기타 필요한 사항은 법률로 정한다. 대통령의 선거에 관한 사항은 법률로 정한다. 대통령은 국민의 보통·평등·직접·비밀선거에
+                    의하여 선출한다. 대한민국은 국제평화의 유지에 노력하고 침략적 전쟁을 부인한다. 국회는 의장 1인과 부의장 2인을 선출한다. 대법원장과 대법관이 아닌 법관의 임기는 10년으로
+                    하며, 법률이 정하는 바에 의하여 연임할 수 있다. 감사원은 원장을 포함한 5인 이상 11인 이하의 감사위원으로 구성한다.</p>
+            </div>
+            <div id="subContent">
+                <ul>
+                    <li><a href="#" title="홈 메뉴">홈</a></li>
+                    <li><a href="#" title="회사소개 메뉴">회사소개</a></li>
+                    <li><a href="#" title="뉴스">뉴스</a></li>
+                    <li><a href="#" title="제품소개 메뉴">제품소개 메뉴</a></li>
+                    <li><a href="#" title="고객센터">고객센터</a></li>
+                </ul>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <!--content끝.-->
+        <div id="footer">
+            <span>2020.CSS활용 강좌 All rights reserved.</span>
+        </div>
+        <!--footer끝.-->
+    </div>
+</body>
+
+</html>
