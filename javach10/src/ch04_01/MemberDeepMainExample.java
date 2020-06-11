@@ -1,4 +1,4 @@
-package ch04_1;
+package ch04_01;
 
 public class MemberDeepMainExample {
 	public static void main(String[] args) {
