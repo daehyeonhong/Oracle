@@ -6,9 +6,11 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Random;
 import java.util.Scanner;
 
 public class AccountMethod {
+	private static Random random = new Random();
 	private static Scanner scanner = new Scanner(System.in);
 	private static Connection con;
 	private static PreparedStatement pstmt;
@@ -66,20 +68,17 @@ public class AccountMethod {
 	// 계좌번호 생성
 	private static String createAno() throws SQLException {
 		int f = 10000, m = 1000, l = 100000;
-		ano = null;
 		while (true) {
-			int fir = (int) (Math.random() * f);
-			int middle = (int) (Math.random() * m);
-			int last = (int) (Math.random() * l);
-			if (fir > (f / 10) && middle > (m / 10) && last > (l / 10)) {
-				ano = (fir + "-" + middle + "-" + last);
+			int fir = (random.nextInt(f) + (f / 10));
+			int mid = random.nextInt(m) + (m / 10);
+			int last = random.nextInt(l) + (l / 10);
+			if (fir < f && mid < m && last < l) {
+				ano = (fir + "-" + mid + "-" + last);
 				System.out.println(ano);
 				pstmt("SELECT ANO FROM BANK WHERE ANO=?");
 				pstmt.setString(1, ano);
 				rs = pstmt.executeQuery();
-				if (!rs.next()) {
-					return ano;
-				}
+				return ((!rs.next()) ? ano : null);
 			}
 		}
 	}
@@ -96,12 +95,7 @@ public class AccountMethod {
 	private static String createPassword() {
 		System.out.print("설정하려는 비밀번호를 입력하세요> ");
 		password = scanner.next();
-		if (chkPwd(password)) {
-			return password;
-		} else {
-			System.out.println("비밀번호 확인 후 다시 시도하세요.");
-		}
-		return null;
+		return ((chkPwd(password)) ? password : null);
 	}
 
 	// 비밀번호 확인
@@ -164,10 +158,10 @@ public class AccountMethod {
 	// 계좌 목록 조회-metadata
 	static void accountList() throws SQLException {
 		System.out.println("┌────────────┐");
-		System.out.println("│    계좌목록    │");
+		System.out.println("│    계좌목록     │");
 		System.out.println("└────────────┘");
 		pstmt("SELECT ANO AS 계좌번호,OWNER AS 계좌주,BALANCE AS 잔고,PASSWORD AS 비밀번호,TO_CHAR(SIGNDATE,'RRRR/MM/DD HH24:MI:SS')"
-				+ " AS 가입일,LOG AS 로그인여부 FROM BANK ORDER BY ANO");
+				+ " AS 가입일,LOG AS 로그온여부 FROM BANK ORDER BY ANO");
 		ResultSet rs = pstmt.executeQuery();
 		ResultSetMetaData rsmd = pstmt.getMetaData();
 		for (int i = 1; i <= rsmd.getColumnCount(); i++) {
