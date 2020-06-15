@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+body {
+	margin: 0;
+}
+
+a {
+	text-decoration: none;
+	color: #000;
+}
+
+#wrap {
+	width: 960px;
+	background: #ccc;
+	position: relative;
+	left: 50%;
+	margin-left: -480px;
+}
+
+#header {
+	background: #eee;
+	padding: 20px;
+}
+
+#header .logo {
+	float: left;
+}
+
+#content {
+	position: relative;
+	height: auto;
+}
+
+#content img {
+	width: 100%;
+}
+
+#footer {
+	background: #000;
+	height: 50px;
+	text-align: center;
+	padding: 20px;
+}
+
+#footer span {
+	color: #fff;
+}
+
+.clear {
+	clear: both;
+}
+
+#mainContent {
+	float: right;
+	width: 700px;
+	padding: 20px;
+}
+
+#subContent {
+	float: left;
+	width: 220px;
+	height: 100%;
+	position: absolute;
+	background: #666;
+}
+
+#subContent a {
+	display: block;
+	width: 100%;
+	height: 100%;
+	padding: 10px;
+}
+
+ul, li {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+#subContent>ul>li {
+	background: #68c;
+	margin: 4px;
+	overflow: hidden;
+	padding-left: 20px;
+}
+
+#subContent>ul>li>ul {
+	display: none;
+	/* 서브메뉴 숨김 */
+}
+
+#subContent>ul>li>a {
+	display: block;
+	/* 폭, 높이 */
+	width: 100%;
+	height: 100%;
+	padding: 10px;
+	padding-left: 30px;
+	background: url("img/bullet.png") no-repeat;
+	background-position: 10px 14px;
+}
+
+#subContent>ul>li>ul>li {
+	padding: 4px;
+	margin: 2px;
+	margin-left: 20px;
+}
+
+#subContent>ul>li>ul>li>a {
+	display: block;
+	width: 100%;
+	height: 100%;
+	padding: 10px;
+	padding-left: 30px;
+}
+
+#subContent>ul>li>ul>li:hover {
+	/* background: #e9a; */
+	background: #fff;
+}
+
+#subContent>ul>.active, #subContent>ul>li:hover {
+	background: #9ed;
+}
+
+/* 2단 메뉴 감추기 */
+#subContent>ul>li:hover>ul {
+	display: block;
+}
+
+/* 2단 메뉴가 있는 1단 메뉴 리스트에 마우스를 올렸을 때 2단을 블럭요소로 보이게 처리 */
+#subContent>ul>li:hover>ul, #subContent>ul.ac:active>ul {
+	display: block;
+}
+</style>
+</head>
+
+<body>
+	<div id="wrap">
+		<div id="header">
+			<span class="logo"><img src="img/logo.png" alt="사이트로고"></span>
+			<h1>CSS활용강좌</h1>
+			<h2>세로 네비게이션 만들기</h2>
+			<div class="clear"></div>
+		</div>
+		<!-- header끝. -->
+		<div id="content">
+			<div id="mainContent">
+				<h3>레이아웃 만들기</h3>
+				<img src="img/bg1.jpg" alt="배경이미지">
+				<p>나는 헌법을 준수하고 국가를 보위하며 조국의 평화적 통일과 국민의 자유와 복리의 증진 및 민족문화의 창달에
+					노력하여 대통령으로서의 직책을 성실히 수행할 것을 국민 앞에 엄숙히 선서합니다. 법관은 헌법과 법률에 의하여 그 양심에
+					따라 독립하여 심판한다. 모든 국민은 양심의 자유를 가진다. 국회는 선전포고, 국군의 외국에의 파견 또는 외국군대의
+					대한민국 영역안에서의 주류에 대한 동의권을 가진다. 모든 국민은 근로의 의무를 진다. 국가는 근로의 의무의 내용과 조건을
+					민주주의원칙에 따라 법률로 정한다. 국가는 건전한 소비행위를 계도하고 생산품의 품질향상을 촉구하기 위한 소비자보호운동을
+					법률이 정하는 바에 의하여 보장한다.</p>
+			</div>
+			<div id="subContent">
+				<ul>
+					<li><a href="#" title="홈메뉴">홈</a></li>
+					<li><a href="#" title="회사소개 메뉴">회사소개</a></li>
+					<li class="active"><a href="#" title="뉴스 메뉴">뉴스</a>
+						<ul>
+							<li><a href="#" title="뉴스1 메뉴">뉴스1</a></li>
+							<li><a href="#" title="뉴스2 메뉴">뉴스2</a></li>
+							<li><a href="#" title="뉴스3 메뉴">뉴스3</a></li>
+						</ul></li>
+					<li><a href="#" title="제품소개 메뉴">제품소개</a>
+						<ul>
+							<li><a href="#" title="제품1메뉴">제품1</a></li>
+							<li><a href="#" title="제품2메뉴">제품2</a></li>
+							<li><a href="#" title="제품3메뉴">제품3</a></li>
+						</ul></li>
+					<li><a href="#" title="고객센터 메뉴">고객센터</a></li>
+				</ul>
+			</div>
+			<!-- content끝. -->
+			<div class="clear"></div>
+			<!-- float 속성 제거 -->
+		</div>
+		<div id="footer">
+			<span>2020.CSS활용강좌 All rights reserved.</span>
+		</div>
+		<!-- footer끝. -->
+	</div>
+	<!-- wrap끝. -->
+</body>
+
+</html>
