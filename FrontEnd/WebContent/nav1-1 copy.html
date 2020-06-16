@@ -29,11 +29,13 @@
 
 		#header .logo {
 			float: left;
+			margin-right: 20px;
 		}
 
 		#content {
 			position: relative;
 			height: auto;
+			/* padding: 30px; */
 		}
 
 		#content img {
@@ -140,6 +142,42 @@
 		#subContent>ul.ac:active>ul {
 			display: block;
 		}
+
+		#nav {
+			position: relative;
+			width: 100%;
+			float: left;
+		}
+
+		#nav>li {
+			float: left;
+			background: #fff;
+		}
+
+		#nav a {
+			display: block;
+			padding: 12px 65px;
+			border-right: 1px solid #666;
+		}
+
+		#nav>li:hover {
+			background: #ee1;
+		}
+
+		#nav>li>ul {
+			display: none;
+			background: #fff;
+			position: absolute;
+		}
+
+		#nav>li>ul>li:hover {
+			background: #ee1;
+		}
+
+		#nav>li:hover>ul {
+			display: block;
+			z-index: 999;
+		}
 	</style>
 </head>
 
@@ -148,7 +186,21 @@
 		<div id="header">
 			<span class="logo"><img src="img/logo.png" alt="사이트로고"></span>
 			<h1>CSS활용강좌</h1>
-			<h2>세로 네비게이션 만들기</h2>
+			<h2>가로 네비게이션 만들기</h2>
+			<ul id="nav">
+				<li><a href="#" title="홈 메뉴">홈</a></li>
+				<li><a href="#" title="회사 메뉴">회사소개</a></li>
+				<li><a href="#" title="뉴스 메뉴">뉴스</a>
+					<ul>
+						<li><a href="#">Home</a></li>
+						<li><a href="#">Tutorials</a></li>
+						<li><a href="#">Articles</a></li>
+						<li><a href="#">Inspiration</a></li>
+					</ul>
+				</li>
+				<li><a href="#" title="제품소개 메뉴">제품소개</a></li>
+				<li><a href="#" title="고객센터 메뉴">고객센터</a></li>
+			</ul>
 			<div class="clear"></div>
 		</div>
 		<!-- header끝. -->
