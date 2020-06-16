@@ -27,3 +27,9 @@ insert into bank(ano,owner,balance,password)values('1','1',500000000,'1');
 insert into bank(ano,owner,balance,password)values('2','2',500000000,'2');
 UPDATE BANK SET BALANCE=1115000 WHERE ANO='1';
 UPDATE BANK SET PASSWORD=1 WHERE ANO=1
+
+select to_number('111-111-111') from dual;
+
+select ano,to_number(replace(ano,translate(ano,'X0123456789.','X'),'')) from bank;
+
+select regexp_replace(ano,'(-){1,}','')from bank where regexp_replace(ano,'(-){1,}','')='726726392901';

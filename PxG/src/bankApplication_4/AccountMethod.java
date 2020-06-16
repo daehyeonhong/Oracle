@@ -75,19 +75,21 @@ public class AccountMethod {
 	// 계좌번호 생성
 	private static String createAno() throws SQLException {
 		int f = 10000, m = 1000, l = 100000;
-		while (true) {
+		boolean isRun = true;
+		while (isRun) {
 			int fir = (random.nextInt(f) + (f / 10));
 			int mid = (random.nextInt(m) + (m / 10));
 			int last = (random.nextInt(l) + (l / 10));
 			if (fir < f && mid < m && last < l) {
-				ano = (fir + "-" + mid + "-" + last);
+				int ano = ((fir * 100000000 + mid * 100000 + last));
 				System.out.println(ano);
-				pstmt("SELECT ANO FROM BANK WHERE ANO=?");
-				pstmt.setString(1, ano);
+				pstmt("select regexp_replace(ano,'(-){1,}','')from bank where regexp_replace(ano,'(-){1,}','')='?';");
+				pstmt.setInt(1, ano);
 				rs = pstmt.executeQuery();
-				return ((!rs.next()) ? ano : null);
+				isRun = ((rs.next()) ? true : false);
 			}
 		}
+		return ano.toString();
 	}
 
 	// 계좌주 확인 및 입력
