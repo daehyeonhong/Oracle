@@ -77,14 +77,12 @@ public class AccountMethod {
 		int f = 10000, m = 1000, l = 100000;
 		boolean isRun = true;
 		while (isRun) {
-			int fir = (random.nextInt(f) + (f / 10));
-			int mid = (random.nextInt(m) + (m / 10));
-			int last = (random.nextInt(l) + (l / 10));
+			double fir = random.nextInt(f), mid = random.nextInt(m), last = random.nextInt(l);
 			if (fir < f && mid < m && last < l) {
-				int ano = ((fir * 100000000 + mid * 100000 + last));
+				double ano = ((fir * 100000000 + mid * 100000 + last));
 				System.out.println(ano);
-				pstmt("select regexp_replace(ano,'(-){1,}','')from bank where regexp_replace(ano,'(-){1,}','')='?';");
-				pstmt.setInt(1, ano);
+				pstmt("select regexp_replace(ano,'(-){1,}','')from bank where regexp_replace(ano,'(-){1,}','')=?;");
+				pstmt.setDouble(1, ano);
 				rs = pstmt.executeQuery();
 				isRun = ((rs.next()) ? true : false);
 			}
