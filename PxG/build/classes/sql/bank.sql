@@ -33,3 +33,8 @@ select to_number('111-111-111') from dual;
 select ano,to_number(replace(ano,translate(ano,'X0123456789.','X'),'')) from bank;
 
 select regexp_replace(ano,'(-){1,}','')from bank where regexp_replace(ano,'(-){1,}','')='726726392901';
+
+select substr(ano,1,4),substr(ano,6,3),substr(ano,10,5)from bank where ano = '4649-680-96200';
+SELECT SUBSTR(ANO,1,4),SUBSTR(ANO,6,3),SUBSTR(ANO,10,5)FROM BANK WHERE ANO='?-?-?';
+select substr(ano,6,3)from bank where ano = '4649-680-96200';
+select substr(ano,10,5)from bank where ano = '4649-680-96200';

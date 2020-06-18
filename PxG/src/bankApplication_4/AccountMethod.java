@@ -76,18 +76,20 @@ public class AccountMethod {
 	private static String createAno() throws SQLException {
 		int f = 10000, m = 1000, l = 100000;
 		boolean isRun = true;
+		ano = null;
 		while (isRun) {
-			double fir = random.nextInt(f), mid = random.nextInt(m), last = random.nextInt(l);
+			int fir = random.nextInt(f), mid = random.nextInt(m), last = random.nextInt(l);
 			if (fir < f && mid < m && last < l) {
-				double ano = ((fir * 100000000 + mid * 100000 + last));
-				System.out.println(ano);
-				pstmt("select regexp_replace(ano,'(-){1,}','')from bank where regexp_replace(ano,'(-){1,}','')=?;");
-				pstmt.setDouble(1, ano);
+				pstmt("SELECT SUBSTR(ANO,1,4),SUBSTR(ANO,6,3),SUBSTR(ANO,10,5)FROM BANK WHERE ANO=to_char(?)||'-'||to_char(?)||'-'||to_char(?)");
+				pstmt.setInt(1, fir);
+				pstmt.setInt(2, mid);
+				pstmt.setInt(3, last);
 				rs = pstmt.executeQuery();
 				isRun = ((rs.next()) ? true : false);
 			}
+			ano = fir + "-" + mid + "-" + last;
 		}
-		return ano.toString();
+		return ano;
 	}
 
 	// 계좌주 확인 및 입력
